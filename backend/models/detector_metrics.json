@@ -1,0 +1,7 @@
+{
+  "model_name": "detector_v1",
+  "anomaly_rate": 0.05000250162605694,
+  "n_samples": 99935,
+  "contamination": 0.05,
+  "trained_at": "2026-11-08T23:07:18.263010+00:00"
+}

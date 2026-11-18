@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WATTWISE DZ — Détection de gaspillage énergétique</title>
+  </head>
+  <body>
+    <script>
+      // Apply the saved theme before first paint (prevents a white flash).
+      (function () {
+        try {
+          var stored = localStorage.getItem("wattwise_theme") || "system";
+          var dark =
+            stored === "dark" ||
+            (stored === "system" &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches);
+          var resolved = dark ? "dark" : "light";
+          document.documentElement.classList.add(resolved);
+          document.documentElement.style.colorScheme = resolved;
+        } catch (e) {}
+      })();
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

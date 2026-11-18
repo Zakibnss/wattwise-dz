@@ -1,0 +1,353 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * WATTWISE DZ design system — "Live Grid".
+ *
+ * Two ideas drive the palette:
+ *   1. An electrical control room: graphite ink surfaces, cyan "voltage"
+ *      accents, amber "solar" highlights, copper warnings.
+ *   2. Every colour has to survive both a bright office screen (light) and a
+ *      dark pitch room (dark), so each token is defined twice with contrast
+ *      checked text/background pairs.
+ */
+@layer base {
+  :root {
+    /* Surfaces */
+    --background: 210 40% 98%;
+    --foreground: 216 45% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 216 45% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 216 45% 11%;
+
+    /* Brand: electric cyan (voltage) */
+    --primary: 191 92% 30%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 32% 94%;
+    --secondary-foreground: 216 40% 16%;
+    --muted: 210 30% 95%;
+    --muted-foreground: 215 22% 41%;
+    --accent: 189 78% 93%;
+    --accent-foreground: 193 92% 21%;
+
+    /* Semantic */
+    --destructive: 354 76% 43%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 158 76% 26%;
+    --success-foreground: 0 0% 100%;
+    --warning: 30 94% 40%;
+    --warning-foreground: 36 100% 97%;
+
+    /* Energy accents */
+    --volt: 191 92% 34%;
+    --volt-bright: 187 92% 45%;
+    --solar: 30 94% 43%;
+    --solar-bright: 38 96% 52%;
+    --eco: 158 76% 30%;
+    --copper: 20 78% 42%;
+
+    /* Lines & focus */
+    --border: 214 28% 88%;
+    --input: 214 30% 85%;
+    --ring: 191 92% 38%;
+    --grid-line: 214 34% 91%;
+    --radius: 0.9rem;
+
+    /* Data visualisation */
+    --chart-consumption: 191 88% 37%;
+    --chart-solar: 32 95% 46%;
+    --chart-forecast: 160 68% 30%;
+    --chart-grid: 232 70% 54%;
+    --chart-neutral: 215 18% 58%;
+
+    /* Navigation rail is always "ink" — a control-room panel in both themes */
+    --sidebar-background: 218 46% 11%;
+    --sidebar-foreground: 210 34% 90%;
+    --sidebar-primary: 187 92% 60%;
+    --sidebar-primary-foreground: 220 55% 6%;
+    --sidebar-accent: 216 38% 17%;
+    --sidebar-accent-foreground: 205 35% 97%;
+    --sidebar-border: 215 32% 20%;
+    --sidebar-ring: 187 92% 60%;
+  }
+
+  .dark {
+    --background: 220 45% 7%;
+    --foreground: 205 34% 94%;
+    --card: 219 38% 10.5%;
+    --card-foreground: 205 34% 95%;
+    --popover: 220 40% 12%;
+    --popover-foreground: 205 34% 95%;
+
+    --primary: 187 92% 56%;
+    --primary-foreground: 220 60% 7%;
+    --secondary: 218 32% 16%;
+    --secondary-foreground: 205 34% 92%;
+    --muted: 218 30% 15%;
+    --muted-foreground: 212 18% 65%;
+    --accent: 195 55% 17%;
+    --accent-foreground: 187 92% 84%;
+
+    --destructive: 355 82% 61%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 156 68% 47%;
+    --success-foreground: 158 90% 7%;
+    --warning: 36 96% 56%;
+    --warning-foreground: 30 90% 7%;
+
+    --volt: 187 92% 58%;
+    --volt-bright: 187 95% 66%;
+    --solar: 38 96% 60%;
+    --solar-bright: 38 100% 68%;
+    --eco: 152 70% 50%;
+    --copper: 22 88% 58%;
+
+    --border: 217 30% 19%;
+    --input: 217 30% 23%;
+    --ring: 187 92% 58%;
+    --grid-line: 217 30% 15%;
+
+    --chart-consumption: 187 92% 60%;
+    --chart-solar: 38 96% 60%;
+    --chart-forecast: 152 70% 50%;
+    --chart-grid: 232 88% 72%;
+    --chart-neutral: 215 16% 52%;
+
+    --sidebar-background: 220 48% 5.5%;
+    --sidebar-foreground: 212 28% 88%;
+    --sidebar-primary: 187 92% 62%;
+    --sidebar-primary-foreground: 220 55% 5%;
+    --sidebar-accent: 217 34% 14%;
+    --sidebar-accent-foreground: 205 36% 97%;
+    --sidebar-border: 216 28% 17%;
+    --sidebar-ring: 187 92% 62%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+  }
+  ::selection {
+    background: hsl(var(--volt) / 0.24);
+    color: hsl(var(--foreground));
+  }
+  /* Numeric readouts use tabular figures so counters don't jitter */
+  .tabular,
+  .metric {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+  .metric {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: -0.02em;
+  }
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+  }
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring) / 0.7);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Ambient canvas: faint engineering grid + two coloured light leaks. */
+  .app-canvas {
+    background-color: hsl(var(--background));
+    background-image:
+      radial-gradient(900px 460px at 8% -8%, hsl(var(--volt) / 0.1), transparent 62%),
+      radial-gradient(760px 420px at 102% 2%, hsl(var(--solar) / 0.09), transparent 58%),
+      linear-gradient(to right, hsl(var(--grid-line) / 0.6) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--grid-line) / 0.6) 1px, transparent 1px);
+    background-size: auto, auto, 48px 48px, 48px 48px;
+    background-position: center top, center top, -1px -1px, -1px -1px;
+  }
+  .dark .app-canvas {
+    background-image:
+      radial-gradient(900px 460px at 8% -10%, hsl(var(--volt) / 0.16), transparent 62%),
+      radial-gradient(880px 440px at 102% 0%, hsl(var(--solar) / 0.12), transparent 58%),
+      linear-gradient(to right, hsl(var(--grid-line) / 0.75) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--grid-line) / 0.75) 1px, transparent 1px);
+  }
+
+  .page {
+    @apply mx-auto max-w-[1400px] px-4 py-6 sm:px-6 lg:px-8;
+  }
+
+  /* Standard instrument panel. */
+  .panel {
+    @apply relative overflow-hidden rounded-2xl border border-border bg-card;
+    box-shadow:
+      0 1px 2px hsl(220 45% 10% / 0.04),
+      0 8px 24px -18px hsl(220 45% 10% / 0.35);
+  }
+  .dark .panel {
+    box-shadow:
+      0 1px 0 hsl(0 0% 100% / 0.03) inset,
+      0 10px 30px -22px hsl(0 0% 0% / 0.9);
+  }
+
+  .sidebar {
+    @apply fixed left-0 top-0 z-50 h-full w-64 border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-all duration-300;
+  }
+
+  .header {
+    @apply sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/65;
+  }
+
+  /* Thin technical divider used under section titles. */
+  .hairline {
+    background-image: linear-gradient(
+      to right,
+      hsl(var(--volt) / 0.5),
+      hsl(var(--solar) / 0.35) 40%,
+      transparent 85%
+    );
+    height: 1px;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium tracking-wide;
+  }
+
+  /* Live telemetry pulse */
+  .live-dot {
+    position: relative;
+    display: inline-flex;
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 9999px;
+    background: hsl(var(--eco));
+  }
+  .live-dot::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 9999px;
+    border: 1px solid hsl(var(--eco) / 0.55);
+    animation: ping-ring 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  .glow-volt {
+    box-shadow: 0 0 0 1px hsl(var(--volt) / 0.35), 0 0 32px -8px hsl(var(--volt) / 0.45);
+  }
+  .glow-solar {
+    box-shadow: 0 0 0 1px hsl(var(--solar) / 0.35), 0 0 32px -8px hsl(var(--solar) / 0.45);
+  }
+
+  /* Subtle top sheen for hero cards */
+  .sheen::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      hsl(var(--volt) / 0.55),
+      hsl(var(--solar) / 0.4),
+      transparent
+    );
+    opacity: 0.9;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-volt {
+    color: hsl(var(--volt));
+  }
+  .text-solar {
+    color: hsl(var(--solar));
+  }
+  .text-eco {
+    color: hsl(var(--eco));
+  }
+  .bg-volt-soft {
+    background-color: hsl(var(--volt) / 0.12);
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted-foreground) / 0.35) transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border: 3px solid transparent;
+  border-radius: 9999px;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+  background-clip: content-box;
+}
+
+@keyframes ping-ring {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.9;
+  }
+  80%,
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Printable documents (weekly report / carbon report) */
+@media print {
+  .app-canvas {
+    background: #fff !important;
+  }
+  aside,
+  header,
+  footer,
+  .print\:hidden {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #0b1220 !important;
+  }
+}
